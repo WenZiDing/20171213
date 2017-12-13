@@ -15,19 +15,20 @@ import java.net.URL;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private EditText account,passwd,realname;
+    private EditText account, passwd, realname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        account = (EditText)findViewById(R.id.account);
-        passwd = (EditText)findViewById(R.id.passwd);
-        realname = (EditText)findViewById(R.id.realname);
+        account = (EditText) findViewById(R.id.account);
+        passwd = (EditText) findViewById(R.id.passwd);
+        realname = (EditText) findViewById(R.id.realname);
     }
-    public void test1 (View view){
-        new Thread(){
+
+    public void test1(View view) {
+        new Thread() {
             @Override
             public void run() {
                 try {
@@ -39,16 +40,17 @@ public class MainActivity extends AppCompatActivity {
                     String line = br.readLine();
                     br.close();
 
-                    Log.v("brad",line);
+                    Log.v("brad", line);
 
                 } catch (Exception e) {
-                    Log.v("brad",e.getLocalizedMessage());
+                    Log.v("brad", e.getLocalizedMessage());
                 }
             }
         }.start();
     }
-    public void test2(View view){
-        new Thread(){
+
+    public void test2(View view) {
+        new Thread() {
             @Override
             public void run() {
                 try {
@@ -72,21 +74,39 @@ public class MainActivity extends AppCompatActivity {
             }
         }.start();
     }
-    public void test3(View view){
-        new Thread(){
+
+    public void test3(View view) {
+        new Thread() {
             @Override
             public void run() {
                 try {
-                    MultipartUtility mu = new MultipartUtility("http://120.108.137.125/ltu/ltu03.php","","UTF-8");
-                    mu.addFormField("account",account.getText().toString());
-                    mu.addFormField("passwd",passwd.getText().toString());
-                    mu.addFormField("realname",realname.getText().toString());
+                    MultipartUtility mu = new MultipartUtility("http://120.108.137.125/ltu/ltu03.php", "", "UTF-8");
+                    mu.addFormField("account", account.getText().toString());
+                    mu.addFormField("passwd", passwd.getText().toString());
+                    mu.addFormField("realname", realname.getText().toString());
                     List<String> ret = mu.finish();
-                    for(String line : ret){
-                        Log.v("brad",line);
+                    for (String line : ret) {
+                        Log.v("brad", line);
                     }
                 } catch (Exception e) {
-                    Log.v("brad",e.toString());
+                    Log.v("brad", e.toString());
+                }
+            }
+        }.start();
+    }
+
+    public void test4(View view) {
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    MultipartUtility mu = new MultipartUtility("http://data.coa.gov.tw/Service/OpenData/ODwsv/ODwsvTravelFood.aspx", "", "UTF-8");
+                    List<String> ret = mu.finish();
+                    for (String line : ret) {
+                        Log.v("brad", line);
+                    }
+                } catch (Exception e) {
+                    Log.v("brad", e.toString());
                 }
             }
         }.start();
