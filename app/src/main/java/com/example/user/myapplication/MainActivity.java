@@ -50,7 +50,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try{
-                    String urlString = "http://120.108.137.125/ltu/ltu03.php?account="+account.getText() + "&passwd="+passwd.getText()+"&realname="+realname.getText();
+                    String urlString = "http://120.108.137.125/ltu/ltu03.php?account="
+                            + account.getText()
+                            +"&passwd=" + passwd.getText()
+                            + "&realname=" + realname.getText();
+
                     URL url = new URL(urlString);
                     HttpURLConnection conn = (HttpURLConnection)url.openConnection();
                     conn.connect();
