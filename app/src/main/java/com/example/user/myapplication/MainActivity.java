@@ -49,23 +49,23 @@ public class MainActivity extends AppCompatActivity {
         new Thread(){
             @Override
             public void run() {
-                try{
+                try {
                     String urlString = "http://120.108.137.125/ltu/ltu03.php?account="
-                            + account.getText()
-                            +"&passwd=" + passwd.getText()
+                            + account.getText() +
+                            "&passwd=" + passwd.getText()
                             + "&realname=" + realname.getText();
-
                     URL url = new URL(urlString);
-                    HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.connect();
 
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String line = br.readLine();
                     br.close();
 
-                    Log.v("brad",line);
-                }catch (Exception e){
-                    Log.v("brad",e.getLocalizedMessage());
+                    Log.v("brad", line);
+
+                } catch (Exception e) {
+                    Log.v("brad", e.getLocalizedMessage());
                 }
             }
         }.start();
