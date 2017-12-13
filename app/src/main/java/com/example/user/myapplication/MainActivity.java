@@ -2,6 +2,7 @@ package com.example.user.myapplication;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -12,6 +13,9 @@ import android.view.View;
 import android.widget.EditText;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -51,8 +55,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private void init() {
+        File sdroot = Environment.getExternalStorageDirectory();
+        File myfile = new File(sdroot,"ltu043.txt");
+        try {
+            FileOutputStream fout = new FileOutputStream(myfile);
+            fout.write("Hello,LTU\r\n".getBytes());
+            fout.flush();
+            fout.close();
+            Log.v("brad","Save OK");
+        } catch (Exception e) {
+            Log.v("brad",e.toString());
+        }
     }
-    
+
 
     public void test1(View view) {
         new Thread() {
@@ -127,10 +142,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    MultipartUtility mu = new MultipartUtility("http://data.coa.gov.tw/Service/OpenData/ODwsv/ODwsvTravelFood.aspx", "", "UTF-8");
+                    File sdroot = Environment.getExternalStorageDirectory();
+                    File myfile = new File(sdroot,"ltu043.txt");
+                   MultipartUtility mu = new MultipartUtility("http://120.108.137.125/ltu/ltu05.php","","UTF-8");
+                    mu.addFilePart("upload",myfile);
+
                     List<String> ret = mu.finish();
                     for (String line : ret) {
-                        Log.v("brad", line);
+                        Log.v("brad", ret.get(0));
                     }
                 } catch (Exception e) {
                     Log.v("brad", e.toString());
